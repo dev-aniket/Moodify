@@ -1,0 +1,44 @@
+.mood-songs {
+    width: 100%;
+    padding: 2rem;
+    padding-top: 0;
+    color: wheat;
+    font-family: 'Sans-serif';
+}
+
+.mood-songs .song {
+    display: flex;
+    width: 100%;
+    align-items: center; /* Align vertically */
+    justify-content: space-between;
+  
+ 
+    box-sizing: border-box;
+}
+
+.mood-name h1 {
+    margin: 0;
+    font-size: 2rem;
+    white-space: nowrap; /* Keeps "Your Mood - neutral" in one line */
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: .5rem;
+}
+
+.play-pause-button {
+    display: flex;
+    align-items: center;
+}
+
+.play-pause-button button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}

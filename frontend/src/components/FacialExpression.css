@@ -1,0 +1,25 @@
+.mood-element{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 6rem;
+}
+
+.mood-element button {
+    padding: 0.7rem 1rem;
+    border-radius: 1.5rem;
+    background-color: rgb(36, 30, 30);
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.user-video-feed{
+    width: 20rem;
+    aspect-ratio: 16/9;
+    border-radius: 1rem;
+    object-fit: cover;
+}
