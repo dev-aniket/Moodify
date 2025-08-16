@@ -6,6 +6,10 @@ const uploadFile = require("../service/storage.service")
 
 const upload = multer({storage:multer.memoryStorage()});
 
+router.get("/", (req, res) => {
+  res.send("Moodify backend is running");
+});
+
 router.post("/songs", upload.single("audio"), async(req, res)=>{
     console.log(req.body);
     console.log(req.file)

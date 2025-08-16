@@ -36,7 +36,7 @@ export default function FacialExpression({setSongs}) {
         }
       }
     
-      axios.get(`http://localhost:3000/songs?mood=${_expession}`)
+      axios.get(`${import.meta.env.VITE_BACKEND_URL}/songs?mood=${_expession}`)
       .then(response =>{
         console.log(response.data)
         setSongs(response.data.songs)
