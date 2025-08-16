@@ -8,7 +8,7 @@ var imagekit = new ImageKit({
 });
 
 function uploadFile(file){
-    return new Promise((resolve, reject) =>{
+    return new Promise((resolve, reject) =>{ 
         imagekit.upload({
             file:file.buffer,
             fileName:new mongoose.Types.ObjectId().toString(),
