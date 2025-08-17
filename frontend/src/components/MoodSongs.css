@@ -1,44 +1,55 @@
 .mood-songs {
-    width: 100%;
-    padding: 2rem;
-    padding-top: 0;
-    color: wheat;
-    font-family: 'Sans-serif';
+  width: 100%;
+  padding: 2rem;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
-.mood-songs .song {
-    display: flex;
-    width: 100%;
-    align-items: center; /* Align vertically */
-    justify-content: space-between;
-  
- 
-    box-sizing: border-box;
+.song-card {
+  background: #2a2a2a;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s;
 }
 
-.mood-name h1 {
-    margin: 0;
-    font-size: 2rem;
-    white-space: nowrap; /* Keeps "Your Mood - neutral" in one line */
+.song-card:hover {
+  transform: translateY(-5px);
 }
 
-.title {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    padding: .5rem;
+.song-poster {
+  width: 100%;
+  border-radius: 0.8rem;
+  margin-bottom: 0.8rem;
+  object-fit: cover;
 }
 
-.play-pause-button {
-    display: flex;
-    align-items: center;
+.song-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.song-artist {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.8rem;
 }
 
 .play-pause-button button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: white;
-    cursor: pointer;
+  background: #ffda79;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.play-pause-button button:hover {
+  background: #ffc300;
 }
