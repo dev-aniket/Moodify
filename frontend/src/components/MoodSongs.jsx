@@ -1,9 +1,24 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import "./MoodSongs.css";
 
-const MoodSongs = ({ Songs }) => {
+const MoodSongs = forwardRef(({ Songs }, ref) => {
   const [isPlaying, setIsPlaying] = useState(null);
   const audioRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Expose scroll function to parent
+  useImperativeHandle(ref, () => ({
+    scrollToSongs: () => {
+      if (containerRef.current) {
+        const top = containerRef.current.getBoundingClientRect().top + window.scrollY;
+        // 👇 scroll with extra offset (e.g., 100px above songs)
+        window.scrollTo({
+          top: top - 500,
+          behavior: "smooth",
+        })
+      }
+    },
+  }));
 
   const handlePlayPause = (index, audioUrl) => {
     if (isPlaying === index) {
@@ -20,7 +35,7 @@ const MoodSongs = ({ Songs }) => {
   };
 
   return (
-    <div className="mood-songs">
+    <div ref={containerRef} className="mood-songs">
       {Songs.map((song, index) => (
         <div key={index} className="song-card">
           {song.poster && (
@@ -38,6 +53,6 @@ const MoodSongs = ({ Songs }) => {
       ))}
     </div>
   );
-};
+});
 
 export default MoodSongs;

@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import FaceDetection from './components/FacialExpress'
-import MoodSongs from './components/MoodSongs'
-
+import { useState, useRef } from "react";
+import FacialExpression from "./components/FacialExpress";
+import MoodSongs from "./components/MoodSongs";
 
 function App() {
-   const [Songs, setSongs] = useState([])
+  const [Songs, setSongs] = useState([]);
+  const songsRef = useRef();
 
   return (
     <>
-      <FaceDetection setSongs = {setSongs}/>
-      <MoodSongs Songs = {Songs}/>
+      <FacialExpression setSongs={setSongs} songsRef={songsRef} />
+      <MoodSongs ref={songsRef} Songs={Songs} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

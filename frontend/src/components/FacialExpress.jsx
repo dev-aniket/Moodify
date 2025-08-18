@@ -3,7 +3,7 @@ import * as faceapi from "face-api.js";
 import "./FacialExpression.css";
 import axios from "axios";
 
-export default function FacialExpression({ setSongs }) {
+export default function FacialExpression({ setSongs, songsRef }) {
   const videoRef = useRef();
   const [expression, setExpression] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,6 +47,8 @@ export default function FacialExpression({ setSongs }) {
         .get(`${import.meta.env.VITE_BACKEND_URL}/songs?mood=${_expression}`)
         .then((response) => {
           setSongs(response.data.songs);
+          // ✅ trigger scroll on MoodSongs
+          songsRef.current?.scrollToSongs();
         })
         .catch((err) => console.error(err));
     }

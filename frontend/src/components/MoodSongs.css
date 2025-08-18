@@ -3,8 +3,20 @@
   padding: 2rem;
   color: white;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 👈 exactly 3 per row */
   gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .mood-songs {
+    grid-template-columns: repeat(2, 1fr); /* 👈 2 per row on tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .mood-songs {
+    grid-template-columns: 1fr; /* 👈 single column on mobile */
+  }
 }
 
 .song-card {
@@ -32,6 +44,7 @@
 .song-title {
   font-size: 1.1rem;
   font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
 .song-artist {
