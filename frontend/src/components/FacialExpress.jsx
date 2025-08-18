@@ -18,41 +18,48 @@ export default function FacialExpression({ setSongs, songsRef }) {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
-        videoRef.current.srcObject = stream;
+        if (videoRef.current) videoRef.current.srcObject = stream;
       })
       .catch((err) => console.error("Error accessing webcam: ", err));
   };
 
   async function detectMood() {
     setLoading(true);
-    const detections = await faceapi
-      .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-      .withFaceExpressions();
+    try {
+      const detections = await faceapi
+        .detectAllFaces(
+          videoRef.current,
+          new faceapi.TinyFaceDetectorOptions()
+        )
+        .withFaceExpressions();
 
-    if (detections.length > 0) {
-      const expressions = detections[0].expressions;
-      let mostProbable = 0;
-      let _expression = "";
+      if (detections.length > 0) {
+        const expressions = detections[0].expressions;
+        let mostProbable = 0;
+        let _expression = "";
 
-      for (const exp in expressions) {
-        if (expressions[exp] > mostProbable) {
-          mostProbable = expressions[exp];
-          _expression = exp;
+        for (const exp in expressions) {
+          if (expressions[exp] > mostProbable) {
+            mostProbable = expressions[exp];
+            _expression = exp;
+          }
         }
+
+        setExpression(_expression);
+
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/songs?mood=${_expression}`
+        );
+
+        setSongs(Array.isArray(data?.songs) ? data.songs : []);
+        // Smooth scroll to songs (MoodSongs exposes this method)
+        songsRef.current?.scrollToSongs();
       }
-
-      setExpression(_expression);
-
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/songs?mood=${_expression}`)
-        .then((response) => {
-          setSongs(response.data.songs);
-          // ✅ trigger scroll on MoodSongs
-          songsRef.current?.scrollToSongs();
-        })
-        .catch((err) => console.error(err));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -67,8 +74,8 @@ export default function FacialExpression({ setSongs, songsRef }) {
         <div className="expression-label">Expression: {expression}</div>
       )}
 
-      <button onClick={detectMood} disabled={loading}>
-        {loading ? <div className="loader"></div> : "Detect Mood"}
+      <button onClick={detectMood} disabled={loading} className="detect-button">
+        {loading ? <div className="loader" /> : "Detect Mood"}
       </button>
     </div>
   );
